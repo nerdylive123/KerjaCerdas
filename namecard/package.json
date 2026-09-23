@@ -1,0 +1,12 @@
+{
+  "name": "kerjacerdas-namecard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KerjaCerdas business namecard — HTML/CSS source + Puppeteer export to PDF/PNG/HTML",
+  "scripts": {
+    "export": "node export.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^24.43.1"
+  }
+}

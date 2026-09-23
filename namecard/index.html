@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KerjaCerdas — Namecard</title>
+<!--
+  KerjaCerdas business namecard (brand-only, single-sided)
+  Trim: 91 × 55 mm · Bleed: 3 mm all sides → full-bleed canvas 97 × 61 mm
+  Safe area: 85 × 49 mm (3 mm inside trim)
+  Add ?guides=1 to the URL to show bleed / trim / safe overlays (hidden in exports).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #090A0F;
+    --bone: #FAF9F5;
+    --paper: #FFFFFF;
+    --orange: #FF4800;
+    --lime: #B4F51C;
+    --mute: #4A4944;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #d8d4cc; /* neutral surround so the card edge is visible on screen */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Full-bleed canvas: 97 × 61 mm */
+  .card {
+    position: relative;
+    width: 97mm;
+    height: 61mm;
+    background: var(--bone);
+    overflow: hidden;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    color: var(--ink);
+  }
+
+  /* ---------- Bleed layer: decorative art that runs to the canvas edge ---------- */
+  .bleed-art {
+    position: absolute;
+    inset: 0;
+  }
+  /* Orange corner block, bleeds off the top-right edge */
+  .bleed-art .corner {
+    position: absolute;
+    top: -8mm;
+    right: -14mm;
+    width: 46mm;
+    height: 34mm;
+    background: var(--orange);
+    border: 1mm solid var(--ink);
+    transform: rotate(8deg);
+  }
+  /* Lime accent bar, bleeds off the bottom-left edge */
+  .bleed-art .bar {
+    position: absolute;
+    bottom: -6mm;
+    left: -10mm;
+    width: 40mm;
+    height: 9mm;
+    background: var(--lime);
+    border: 0.9mm solid var(--ink);
+    transform: rotate(-4deg);
+  }
+
+  /* ---------- Safe area: all content lives here (85 × 49 mm, centered) ---------- */
+  .safe {
+    position: absolute;
+    inset: 6mm; /* 3mm bleed + 3mm safe margin, on all sides */
+    display: flex;
+    align-items: center;
+    gap: 5mm;
+  }
+
+  .logo {
+    flex: 0 0 auto;
+    width: 15mm;
+    height: 15mm;
+    border: 0.8mm solid var(--ink);
+    box-shadow: 2.2mm 2.2mm 0 var(--ink);
+    background: var(--paper);
+    display: block;
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .wordmark {
+    font-size: 17.5pt;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .wordmark .accent { color: var(--orange); }
+
+  .tagline {
+    margin-top: 1.6mm;
+    font-size: 7.6pt;
+    font-weight: 500;
+    color: var(--mute);
+    line-height: 1.3;
+    max-width: 52mm;
+  }
+
+  .contact {
+    margin-top: 2.8mm;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4mm 4mm;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 6.9pt;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .contact span { white-space: nowrap; }
+  .contact .label { color: var(--orange); margin-right: 1mm; }
+
+  /* ---------- Guides overlay (screen only, enabled with ?guides=1) ---------- */
+  .guides-overlay { display: none; }
+  body.show-guides .guides-overlay { display: block; }
+  .guides-overlay > div { position: absolute; pointer-events: none; }
+  .guides-overlay .trim {
+    inset: 3mm;
+    outline: 0.2mm dashed #00B8D9;
+  }
+  .guides-overlay .safe-line {
+    inset: 6mm;
+    outline: 0.2mm dashed #DC2626;
+  }
+  .guides-overlay .lbl {
+    font: 700 2.4mm "JetBrains Mono", monospace;
+    color: #00B8D9;
+    top: 0.6mm; left: 3.6mm;
+  }
+  .guides-overlay .lbl2 {
+    font: 700 2.4mm "JetBrains Mono", monospace;
+    color: #DC2626;
+    top: 3.8mm; left: 6.4mm;
+  }
+
+  @media print {
+    html, body { background: none; }
+    .guides-overlay { display: none !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="bleed-art">
+      <div class="corner"></div>
+      <div class="bar"></div>
+    </div>
+
+    <div class="safe">
+      <img class="logo" src="logo.svg" alt="KerjaCerdas logo" />
+
+      <div class="info">
+        <div class="wordmark">Kerja<span class="accent">Cerdas</span></div>
+        <div class="tagline">AI Job Matching yang Menilai Skill Terbukti</div>
+        <div class="contact">
+          <span><span class="label">Web</span>kerjacerdas.id</span>
+          <span><span class="label">Mail</span>hello@kerjacerdas.id</span>
+          <span><span class="label">IG</span>@kerjacerdas</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="guides-overlay">
+      <div class="trim"></div>
+      <div class="safe-line"></div>
+      <div class="lbl">TRIM 91×55</div>
+      <div class="lbl2">SAFE 85×49</div>
+    </div>
+  </div>
+
+  <script>
+    if (new URLSearchParams(location.search).get("guides") === "1") {
+      document.body.classList.add("show-guides");
+    }
+  </script>
+</body>
+</html>
